@@ -87,14 +87,43 @@ class Komik extends BaseController
 					'required' => '{field} komik harus diisi.',
 					'is_unique' => '{field} komik sudah terdaftar.'
 				]
+			],
+			// judul dan sampul didapat dari name di input sampul
+			'sampul' => [
+				// uploaded[sampul]|
+				'rules' => 'max_size[sampul,1024]|is_image[sampul]|mime_in[sampul,image/jpg,image/jpeg,image/png]',
+				'errors' => [
+									// 'uploaded' => 'Pilih gambar {field} terlebih dahulu.',
+									'max_size' => 'Maksimal ukurannya 1 MB',
+									'is_image' =>  'Yang anda pilih bukan gambar',
+									'mime_in'  =>  'Yang anda pilih bukan gambar'
+								]
 			]
 		])) {
 			// cara ambil pesan kesalahan
-			$validation = \Config\Services::validation();
+			// $validation = \Config\Services::validation();
 			// dd($validation);
 			// echo $validation['errors'];
-			return redirect()->to('/komik/create')->withInput()->with('validation', $validation);
+			// return redirect()->to('/komik/create')->withInput()->with('validation', $validation);
+			return redirect()->to('/komik/create')->withInput();
 		}
+
+		// dd('berhasil');
+		// ambil gambar
+		$fileSampul = $this->request->getFile('sampul');
+		// apakah tidak ada gambar yang diupload
+
+		if ($fileSampul->getError() == 4) {
+			$namaSampul='default.jpg';
+		}else{
+			$namaSampul = $fileSampul->getRandomName();
+			// dd($fileSampul);
+			// pindahkan file ke folder img di public
+			$fileSampul->move('img', $namaSampul);
+			// ambil nama file
+			// $namaSampul = $fileSampul->getName();
+		}
+		
 
 
 		// cara ambil data
@@ -106,7 +135,7 @@ class Komik extends BaseController
 			'slug' => $slug,
 			'penulis' => $this->request->getVar('penulis'),
 			'penerbit' => $this->request->getVar('penerbit'),
-			'sampul' => $this->request->getVar('sampul')
+			'sampul' => $namaSampul
 		]);
 
 		// flashdata
@@ -117,6 +146,15 @@ class Komik extends BaseController
 	}
 
 	public function delete($id){
+		// cari gambar berdasar id
+		$komik = $this->komikModel->find($id);
+
+		// hapus gambar
+		if (($komik['sampul'] != ' nullaaa') && ($komik['sampul'] != 'default.jpg')) {
+			// dd($komik['sampul']);
+			unlink('img/'.$komik['sampul']);
+		}		
+
 		$this->komikModel->delete($id);
 		// flashdata
 		session()->setFlashdata('pesan','Data berhasil dihapus.');
@@ -154,12 +192,39 @@ class Komik extends BaseController
 					'required' => '{field} komik harus diisi.',
 					'is_unique' => '{field} komik sudah terdaftar.'
 				]
+			],
+			'sampul' => [
+				// uploaded[sampul]|
+				'rules' => 'max_size[sampul,1024]|is_image[sampul]|mime_in[sampul,image/jpg,image/jpeg,image/png]',
+				'errors' => [
+									// 'uploaded' => 'Pilih gambar {field} terlebih dahulu.',
+									'max_size' => 'Maksimal ukurannya 1 MB',
+									'is_image' =>  'Yang anda pilih bukan gambar',
+									'mime_in'  =>  'Yang anda pilih bukan gambar'
+								]
 			]
 		])) {
 			// cara ambil pesan kesalahan
-			$validation = \Config\Services::validation();
+			// $validation = \Config\Services::validation();
 			// dd($validation);
-			return redirect()->to('/komik/edit/'.$this->request->getVar('slug'))->withInput()->with('validation', $validation);
+			// return redirect()->to('/komik/edit/'.$this->request->getVar('slug'))->withInput()->with('validation', $validation);
+			return redirect()->to('/komik/edit/'.$this->request->getVar('slug'))->withInput();
+		}
+
+		// kelola gambar ncurses_baru
+		$fileSampul = $this->request->getFile('sampul');
+		$sname = $this->request->getVar('sampulLama');
+		// cek gambar
+		if ($fileSampul->getError()==4) {
+			$namaSampul = $sname;
+		}else{
+			// generate namarandom
+			$namaSampul = $fileSampul->getRandomName();
+			// pindah gambar
+			$fileSampul->move('img', $namaSampul);
+			// hapus gambar lama
+			// unlink('/img/'.$this->request->getVar('sampulLama'));
+			unlink('img/'.$sname);
 		}
 
 		$slug = url_title($this->request->getVar('judul'),'-',true);
@@ -170,7 +235,7 @@ class Komik extends BaseController
 			'slug' => $slug,
 			'penulis' => $this->request->getVar('penulis'),
 			'penerbit' => $this->request->getVar('penerbit'),
-			'sampul' => $this->request->getVar('sampul')
+			'sampul' => $namaSampul
 		]);
 
 		// flashdata

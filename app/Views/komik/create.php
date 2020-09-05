@@ -6,7 +6,7 @@
 		<div class="col">
 			<h2 class="my-3">Form tambah data</h2>
 			<!-- echo $validation->listErrors() -->
-			<form action="/komik/save" method="post">
+			<form action="/komik/save" method="post" enctype="multipart/form-data">
 				<?php echo csrf_field(); ?>
 				<!-- supaya hanya bisa diinput di halaman ini aja -->
 				  <div class="form-group row">
@@ -37,8 +37,18 @@
 	
 				  <div class="form-group row">
 				    <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="sampul" name="sampul" value="<?php echo old('sampul'); ?>">
+				    <div class="col sm-2">
+						  	<img src="/img/default.jpg" class="img-thumbnail img-preview">
+					</div>
+				    <div class="col-sm-8">
+				      <!-- <input type="text" class="form-control" id="sampul" name="sampul" value="echo old('sampul')"> -->
+				      <div class="custom-file">
+						  <input type="file" class="custom-file-input <?php echo ($validation->hasError('sampul')) ? 'is-invalid' : ''; ?>" id="sampul" name="sampul" onchange="previewImg()">
+						  <div class="invalid-feedback">
+				          	<?php echo $validation->getError('sampul'); ?>
+				          </div>
+						  <label class="custom-file-label" for="sampul">Pilih Gambar</label>
+					  </div>
 				    </div>
 				  </div>
 				  
