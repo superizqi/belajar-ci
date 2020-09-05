@@ -63,13 +63,40 @@ class Komik extends BaseController
 	}
 
 	public function create(){
+		// ini jangan sampe lupa sesion
+		// session();
 		$data = [
-			'title' => 'Form Tambah Data Komik'];
+			'title' => 'Form Tambah Data Komik',
+			'validation' => \Config\Services::validation()
+		];
 
 		return view('komik/create',$data);
 	}
 
 	public function save(){
+
+		// validasi input
+		// judul diambil dari name input
+		// komik.judul field mana di tabel mana
+		if (!$this->validate([
+			// 'judul' => 'required|is_unique[tb_komik.judul]'
+			// detail
+			'judul' => [
+				'rules' => 'required|is_unique[tb_komik.judul]',
+				'errors' => [
+					'required' => '{field} komik harus diisi.',
+					'is_unique' => '{field} komik sudah terdaftar.'
+				]
+			]
+		])) {
+			// cara ambil pesan kesalahan
+			$validation = \Config\Services::validation();
+			// dd($validation);
+			// echo $validation['errors'];
+			return redirect()->to('/komik/create')->withInput()->with('validation', $validation);
+		}
+
+
 		// cara ambil data
 		// dd($this->request->getVar());
 		$slug = url_title($this->request->getVar('judul'),'-',true);
@@ -99,7 +126,8 @@ class Komik extends BaseController
 	public function edit($slug){
 		$data = [
 			'title' => 'Form Edit Data Komik',
-			'komik' => $this->komikModel->getKomik($slug)
+			'komik' => $this->komikModel->getKomik($slug),
+			'validation' => \Config\Services::validation()
 		];
 
 		return view('komik/edit',$data);
@@ -107,6 +135,32 @@ class Komik extends BaseController
 
 	public function update($id){
 		// dd($this->request->getVar());
+		// session();
+		// jika user mengganti judul maka dicek dulu, kalo ngga ganti ga usah dicek
+		$komikLama = $this->komikModel->getKomik($this->request->getVar('slug'));
+		// jika sama
+		if ($komikLama['judul'] == $this->request->getVar('judul')) {
+			$rule_judul = 'required';
+		}else{
+			$rule_judul = 'required|is_unique[tb_komik.judul]';
+		}
+
+		if (!$this->validate([
+			// 'judul' => 'required|is_unique[tb_komik.judul]'
+			// detail
+			'judul' => [
+				'rules' => $rule_judul,
+				'errors' => [
+					'required' => '{field} komik harus diisi.',
+					'is_unique' => '{field} komik sudah terdaftar.'
+				]
+			]
+		])) {
+			// cara ambil pesan kesalahan
+			$validation = \Config\Services::validation();
+			// dd($validation);
+			return redirect()->to('/komik/edit/'.$this->request->getVar('slug'))->withInput()->with('validation', $validation);
+		}
 
 		$slug = url_title($this->request->getVar('judul'),'-',true);
 
