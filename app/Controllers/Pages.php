@@ -3,11 +3,19 @@
 class Pages extends BaseController
 {
 	public function index()
-	{
+	{	
+		// tes faker, ini ada di folder vendor\fzaninotto
+		// kasih backlash biar kebaca
+		// $faker = \Faker\Factory::create();
+		// dd($faker->name);
+		// dd($faker->text);
+		// dd($faker->address);
+
 		$data = [
 			'title' => 'Home | Web Programming',
 			'tes' => ['satu','dua','tiga']
 		];
+		// dd($data);
 		// memanggil file welcome_message di folder views
 		// return view('welcome_message');
 		// echo "hello world";
