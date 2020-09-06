@@ -7,13 +7,32 @@ class OrangController extends BaseController
 		// memanggil file welcome_message di folder views
 		// return view('welcome_message');
 		// echo "Ini Controller Orang";
+
 		$pager = \Config\Services::pager();
         $model = new \App\Models\OrangModels();
 
+        // d($this->request->getVar('keyword'));
+
+        $keyword = $this->request->getVar('keyword');
+
+        if ($keyword) {
+        	$oro = $model->search($keyword);
+        }else{
+        	$oro = $model;
+        }
+
+
+
+
+        $currentPage = $this->request->getVar('page_orang') ? $this->request->getVar('page_orang') : 1;
+        $perHalaman = 5;
 		$data = [
-			'title' => 'View Orang',
-			'users' => $model->paginate(10,'id_pagination'),
-			'pager' => $model->pager
+			'title' => 'Daftar Orang',
+			// 'users' => $model->paginate(6,'id_pagination'),
+			'users' => $oro->paginate($perHalaman,'orang'),
+			'pager' => $model->pager,
+			'current_page' => $currentPage,
+			'per_halaman' => $perHalaman
 			// 'komik' => $this->OrangModels->getOrang(),
 			// 'users' => $userModel
 

@@ -12,6 +12,7 @@
     	<a class="nav-item nav-link" href="<?= base_url('pages/about'); ?>">About</a>
     	<a class="nav-item nav-link" href="<?= base_url('pages/contact'); ?>">Contact</a>
       <a class="nav-item nav-link" href="<?= base_url('/komik'); ?>">Komik</a>
+      <a class="nav-item nav-link" href="<?= base_url('/orang'); ?>">Orang</a>
     </div>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

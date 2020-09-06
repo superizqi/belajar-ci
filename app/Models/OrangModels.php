@@ -25,5 +25,16 @@ class OrangModels extends Model
             return $this->findAll();
     }
 
+    // cari query builder clas
+    // looking for similar data
+    public function search($keyword){
+        // nama tabel
+        // $builder = $this->table('orang');
+        // // nama kolom/field, keyword
+        // $builder->like('nama',$keyword);
+        // return $builder;
+        return $this->table('orang')->like('nama',$keyword)->orLike('alamat',$keyword);
+    }
+
 
 }

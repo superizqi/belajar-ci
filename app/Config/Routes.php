@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 // $routes->get('/', 'Pages::index');
 $routes->get('/','OrangController::index');
+$routes->get('/orang','OrangController::index');
 $routes->get('/coba/index', 'CobaController::index');
 $routes->get('/coba/about', 'CobaController::about');
 $routes->get('/coba/(:any)/(:any)', 'CobaController::about/$1/$2');
