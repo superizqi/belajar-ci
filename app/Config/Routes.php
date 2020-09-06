@@ -32,7 +32,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 // controller home method index
 // $routes->get('/', 'Home::index');
-$routes->get('/', 'Pages::index');
+// $routes->get('/', 'Pages::index');
+$routes->get('/','OrangController::index');
 $routes->get('/coba/index', 'CobaController::index');
 $routes->get('/coba/about', 'CobaController::about');
 $routes->get('/coba/(:any)/(:any)', 'CobaController::about/$1/$2');
