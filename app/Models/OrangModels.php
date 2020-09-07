@@ -35,6 +35,4 @@ class OrangModels extends Model
         // return $builder;
         return $this->table('orang')->like('nama',$keyword)->orLike('alamat',$keyword);
     }
-
-
 }
