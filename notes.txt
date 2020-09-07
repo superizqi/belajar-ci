@@ -1,0 +1,135 @@
+Open
+
+1. Git Bash Serve
+2. Git Bash Folder
+3. XAMPP
+4. Sublim
+5. buka notepad
+
+Target
+1. Register - Login - session
+2. CRUD			done
+3. Upload Gambar	done
+4. pagination 		done
+5. transaksi
+6. searching 		done
+
+ctrl shift p - package control
+
+PLUGIN VSC
+intelephense
+prettier
+snippet
+
+cek instal composer
+composer
+php -v
+which php
+
+composer create-project codeigniter4/appstarter namafolder --no-dev
+
+cd ci4app
+php spark serve
+
+
+STRUKTUR FOLDER
+app		- 
+public 		- folder tempat simpan aset, semua aset
+vendor		- tempat menyimpan dependency, yang diinstal dari composer.json
+
+
+Controller	- 
+Models 		- Database
+Views		- 
+Config		- 
+Config/Routes 	- untuk mengubah routes
+
+routes
+controller
+views
+
+
+localhost/controller/method
+
+.env app.baseurl = buat ganti url sesuai dengan domain
+
+
+manual
+
+ctrl + p caracari file mudah
+
+
+tulis nama models di basecontroller
+$this->komikModels = new \App\Models\KomikModels();
+
+ctrl + shift + d - duplikat
+
+
+https://getbootstrap.com/docs/4.0/utilities/spacing/
+mt-my-mb
+top-bottom
+y=all
+
+session(); taruh di BaseController aja biar g lupa
+
+maksimal size upload file ada di php.ini
+; Maximum allowed size for uploaded files.
+; http://php.net/upload-max-filesize
+upload_max_filesize=40M
+
+; Maximum size of POST data that PHP will accept.
+; Its value may be 0 to disable the limit. It is ignored if POST data reading
+; is disabled through enable_post_data_reading.
+; http://php.net/post-max-size
+post_max_size=40M
+
+jangan lupa matiin titik komanya
+
+habis itu restart apachenya
+
+====== MIGRATIONS ========
+untuk bikin struktur query
+bisa edit SQL manual, bisa bikin database dengan koding, dengan cmd, bisa langsung terbentuk di rdbms
+memudahkan dalam kerja
+
+ada di folder/ app/database/migrations
+php spark migrate -> untuk mengeksekusi tabel, semua file dieksekusi
+php spark migrate:create [filename]
+php spark migrate:create [namatabel]
+method up untuk membuat
+method down untuk menghapus
+rollback database dihapus, lalu diubah dengan yang baru, kalo mau update
+
+== DATABASE SEEDING ==
+menambah data dengan data sample,
+class seeder gabisa pake cli, harus tulis manual
+
+== FAKER ==
+eksternal bukan CI 
+- instal dulu pake composer di folderna -
+composer require fzaninotto/faker
+- tanda beres ada 579 classes
+bisa buat generate data
+
+== SEEDER ==
+diisi otomatis
+php spark db:seed TestSeeder
+
+cara hapus data
+phpmyadmin pilih OPERATIONS, kebawah empty the table (TRUNCATE), reset jadinya
+
+
+php spark untuk melihat semua fungsi yang ada
+
+workflow
+routes
+controller
+model taruh di basecontroller
+views
+
+
+
+
+
+
+
