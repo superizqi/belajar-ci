@@ -44,6 +44,7 @@ class BaseController extends Controller
 		$this->nama = "Rizqi";
 		$this->komikModel = new \App\Models\KomikModels();
 		$this->OrangModels = new \App\Models\OrangModels();
+		$this->UserModels = new \App\Models\UsersModel();
 		session();
 	}
 

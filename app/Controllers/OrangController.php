@@ -43,6 +43,32 @@ class OrangController extends BaseController
 		return view('view_orang', $data);
 	}
 
+
+
+	// public function login(){
+	// 	$model = new \App\Models\OrangModels();
+	// 	// $this->load->model("UsersModel");
+ //        // $this->load->library('form_validation');
+
+ //        // if($this->input->post()){
+ //        //     if($this->user_model->doLogin()) redirect(site_url('admin'));
+ //        // }
+
+ //        // tampilkan halaman login
+ //        return view("admin/login_page");
+
+	// 	// echo "ini laman login";
+	// }
+
+	// public function logout()
+ //    {
+ //        // hancurkan semua sesi
+ //        $this->session->sess_destroy();
+ //        redirect(site_url('admin/login'));
+ //    }
+
+
+
 	// public function about($nama = "", $umur = "0")
 	// {
 	// 	// memanggil file welcome_message di folder views

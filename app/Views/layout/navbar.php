@@ -9,6 +9,7 @@
     <div class='navbar-nav'>
     	<!-- <a class="nav-item nav-link" href="/">Home</a> -->
     	<a class="nav-item nav-link" href="<?= base_url('/'); ?>">Home</a>
+      <a class="nav-item nav-link" href="<?= base_url('/login'); ?>">Login</a>
     	<a class="nav-item nav-link" href="<?= base_url('pages/about'); ?>">About</a>
     	<a class="nav-item nav-link" href="<?= base_url('pages/contact'); ?>">Contact</a>
       <a class="nav-item nav-link" href="<?= base_url('/komik'); ?>">Komik</a>
