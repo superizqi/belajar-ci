@@ -137,12 +137,17 @@ views
 7. hapus dulu semua file di public htl, atau pindah ke folder temp bikn sendiri
 8. pindahkan folder public ke public_html
 9. benerin file index, $pathsPath = tambahkan nama foldernya ./namafolder/app
+- jd gini $pathsPath = realpath(FCPATH . '../namafolder/app/Config/Paths.php');
 - indeks sudah berhasil
+
 10. benerin file .env di root namafolder, kalo hidden di show dulu
 - app.baseURL nya ganti sesuai domain
 - CI_ENVIRONMENT = production bisa juga jadi development(biar keliatan error)
+- tanda # matiin
+
 11. benerin file /app/config/App.php
 - $baseURL ganti sesuaikan
+
 12. lalu export database yang di lokal, 
 - buka phpmyadmin, export, custom, save output to a file, klik go 
 - bikin database baru di webhosting, cpanel/MYSQL Databases, namanya bakal baru
@@ -158,13 +163,19 @@ ganti
 - default.password = 
 sesuaikan
 
-14. pindah file orang_pagination ke /vendor/codeigniter4/framework/system/pager/views
+14. pindah file orang_pagination ke /vendor/codeigniter4/framework/system/pager/views,
+ubah app/config/pager.php
 15. 
+
+// kalo error
+config/database.php and change ‘stricton’ value to TRUE
+
 
 000 webostapp
 https://pusrvc.000webhostapp.com/
 
 nama namadatabase
+id14801442_namadatabase
 user user
 pw i1SRgJ_]YNjHGTL<
 
